@@ -6,4 +6,7 @@ pydantic>=2.5.0
 alembic>=1.12.1
 greenlet>=3.0.0
 requests>=2.31.0
+pytest>=7.4.0
+pytest-asyncio>=0.21.0
+httpx>=0.25.0
 
