@@ -5,6 +5,7 @@
 - Database: SQLite (jedyna baza danych używana w tym projekcie).
 - ORM: SQLAlchemy 2.0 (asynchronicznie, jedyna warstwa dostępu do bazy).
 - Validation: Pydantic v2.
+- Tests: Pytest
 
 ## Technology Constraints
 - Nie używaj innych frameworków webowych (np. Django, Flask, Starlette) poza FastAPI.
@@ -17,12 +18,11 @@
 - Używaj Migracji Alembic do zarządzania strukturą tabel.
 
 ## Coding Standards
-- Standard kodowania:
-  - Używaj `Annotated` do wstrzykiwania zależności (Dependency Injection), np. dla sesji bazy danych.
-  - Każdy endpoint musi posiadać `response_model`.
-  - Komentarze w kodzie muszą być generowane w języku angielskim.
-  - Rozdzielaj modele bazy danych (SQLAlchemy) od schematów odpowiedzi (Pydantic).
-  - Pisz kod asynchroniczny (`async def`) tam, gdzie to możliwe.
+- Używaj `Annotated` do wstrzykiwania zależności (Dependency Injection), np. dla sesji bazy danych.
+- Każdy endpoint musi posiadać `response_model`.
+- Komentarze w kodzie muszą być generowane w języku angielskim.
+- Rozdzielaj modele bazy danych (SQLAlchemy) od schematów odpowiedzi (Pydantic).
+- Pisz kod asynchroniczny (`async def`) tam, gdzie to możliwe.
 
 ## Architecture
 - Wymuś podział na foldery:
