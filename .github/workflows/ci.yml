@@ -58,15 +58,6 @@ jobs:
       matrix:
         python-version: [ "3.10", "3.11", "3.12" ]
     
-    services:
-      sqlite:
-        image: busybox
-        options: >-
-          --health-cmd "exit 0"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-    
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
