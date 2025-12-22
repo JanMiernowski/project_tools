@@ -8,28 +8,28 @@ from sqlalchemy import text
 from models.database import get_db
 from schemas.health import HealthResponse, HealthStatus
 
-router = APIRouter(prefix="/health",)
+router_api = APIRouter(prefix="/health",)
 
 
-@router.get(
+@router_api.get(
     "/",
     response_model=HealthResponse,
     summary="Health check endpoint",
-    description="Sprawdza czy API i baza danych działają poprawnie",
+    description="Check if the API and database are working properly",
 )
 async def health_check(
     db: Annotated[AsyncSession, Depends(get_db)]
 ) -> HealthResponse:
     """
-    Endpoint do weryfikacji działania API i połączenia z bazą danych.
+    Endpoint to verify the API and database are working properly.
     
-    Zwraca:
-    - status: "healthy" jeśli wszystko działa, "unhealthy" w przeciwnym razie
-    - timestamp: czas sprawdzenia
-    - database: status połączenia z bazą danych
+    Returns:
+    - status: "healthy" if everything is working, "unhealthy" otherwise
+    - timestamp: timestamp of the check
+    - database: status of the database connection
     """
     try:
-        # Sprawdzenie połączenia z bazą danych
+        # Check the database connection
         result = await db.execute(text("SELECT 1"))
         result.scalar()
         database_status = "connected"
