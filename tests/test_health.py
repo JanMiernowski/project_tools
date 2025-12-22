@@ -2,7 +2,7 @@
 Tests for health check endpoint.
 """
 import pytest
-from datetime import datetime, UTC
+from datetime import datetime, timezone
 from typing import AsyncGenerator
 from httpx import AsyncClient
 from unittest.mock import AsyncMock
@@ -38,7 +38,7 @@ async def test_health_check_success(test_client: AsyncClient):
     assert isinstance(timestamp, datetime)
     
     # Verify timestamp is recent (within last 5 seconds)
-    now = datetime.now(UTC)
+    now = datetime.now(timezone.utc)
     time_diff = abs((now - timestamp).total_seconds())
     assert time_diff < 5
 

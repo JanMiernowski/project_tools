@@ -1,10 +1,15 @@
 # FastAPI & SQLite Project Rules
 
 ## Tech Stack
-- Framework: FastAPI.
-- Database: SQLite.
-- ORM: SQLAlchemy (asynchronicznie).
+- Framework: FastAPI (jedyny do budowy API w tym projekcie).
+- Database: SQLite (jedyna baza danych używana w tym projekcie).
+- ORM: SQLAlchemy 2.0 (asynchronicznie, jedyna warstwa dostępu do bazy).
 - Validation: Pydantic v2.
+
+## Technology Constraints
+- Nie używaj innych frameworków webowych (np. Django, Flask, Starlette) poza FastAPI.
+- Nie używaj innych ORM-ów ani warstw dostępu do danych poza SQLAlchemy (np. Tortoise ORM, Gino, raw asyncpg).
+- Nie używaj innych silników baz danych w kodzie aplikacji (np. PostgreSQL, MySQL, MongoDB); trzymaj się wyłącznie SQLite.
 
 ## Database (SQLite) specific
 - Zawsze używaj "sqlite://./sql_app.db" jako domyślnego połączenia dla środowiska deweloperskiego.
@@ -12,11 +17,18 @@
 - Używaj Migracji Alembic do zarządzania strukturą tabel.
 
 ## Coding Standards
-- Używaj `Annotated` dla Dependency Injection (np. dla sesji bazy danych).
-- Rozdzielaj modele bazy danych (SQLAlchemy) od schematów odpowiedzi (Pydantic).
-- Każdy endpoint powinien mieć zdefiniowany `response_model`.
-- Pisz kod asynchroniczny (`async def`) tam, gdzie to możliwe.
-- Komentarze do kodu przygotuj po angielsku
+- Standard kodowania:
+  - Używaj `Annotated` do wstrzykiwania zależności (Dependency Injection), np. dla sesji bazy danych.
+  - Każdy endpoint musi posiadać `response_model`.
+  - Komentarze w kodzie muszą być generowane w języku angielskim.
+  - Rozdzielaj modele bazy danych (SQLAlchemy) od schematów odpowiedzi (Pydantic).
+  - Pisz kod asynchroniczny (`async def`) tam, gdzie to możliwe.
+
+## Architecture
+- Wymuś podział na foldery:
+  - `models/` – klasy SQLAlchemy odwzorowujące strukturę bazy danych.
+  - `schemas/` – modele Pydantic do walidacji wejścia/wyjścia i schematów odpowiedzi.
+  - `routers/` – endpointy API (FastAPI routers) i definicje ścieżek.
 
 You are an expert in Python, FastAPI, and scalable API development.
 

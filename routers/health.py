@@ -1,4 +1,4 @@
-from datetime import datetime, UTC
+from datetime import datetime, timezone
 from typing import Annotated
 
 from fastapi import APIRouter, Depends, HTTPException
@@ -40,7 +40,7 @@ async def health_check(
     
     return HealthResponse(
         status=overall_status,
-        timestamp=datetime.now(UTC),
+        timestamp=datetime.now(timezone.utc),
         database=database_status,
     )
 
