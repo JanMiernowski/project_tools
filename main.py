@@ -3,7 +3,7 @@ from fastapi import FastAPI
 
 from models.database import engine
 from routers import health, hello
-from routers import locations
+from routers import locations, offers
 
 
 @asynccontextmanager
@@ -30,6 +30,7 @@ app = FastAPI(
 app.include_router(health.router, tags=["Health"])
 app.include_router(hello.router, tags=["Hello"])
 app.include_router(locations.router, tags=["Locations"])
+app.include_router(offers.router, tags=["Offers"])
 
 
 @app.get("/", response_model=dict)
