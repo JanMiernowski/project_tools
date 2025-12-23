@@ -16,9 +16,10 @@ import os
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine, async_sessionmaker
 from sqlalchemy.pool import StaticPool
 from httpx import AsyncClient, ASGITransport
+from sqlmodel import SQLModel
 
-from models.base import Base
 from models.database import get_db
+from models.models import Location, Building, Owner, Features, Listing  # noqa: F401
 from main import app
 
 
@@ -41,7 +42,7 @@ async def test_engine():
     
     # Create all tables
     async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.create_all)
+        await conn.run_sync(SQLModel.metadata.create_all)
     
     yield engine
     

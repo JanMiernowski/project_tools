@@ -1,6 +1,7 @@
 """
 Tests for location details endpoint.
 """
+from decimal import Decimal
 from typing import AsyncGenerator
 
 import pytest
@@ -23,8 +24,8 @@ async def test_get_location_details_success(
         city_district="Śródmieście Północne",
         street="Marszałkowska",
         full_address="Marszałkowska 1, 00-001 Warszawa",
-        latitude=52.2297,
-        longitude=21.0122,
+        latitude=Decimal("52.2297"),
+        longitude=Decimal("21.0122"),
     )
     test_session_with_commit.add(location)
     await test_session_with_commit.commit()
@@ -58,8 +59,9 @@ async def test_get_location_details_success(
     assert data["city_district"] == location.city_district
     assert data["street"] == location.street
     assert data["full_address"] == location.full_address
-    assert pytest.approx(data["latitude"], rel=1e-6) == float(location.latitude)
-    assert pytest.approx(data["longitude"], rel=1e-6) == float(location.longitude)
+    # SQLModel serializes Decimal as string in JSON, convert for comparison
+    assert abs(float(location.latitude) - float(data["latitude"])) < 1e-6
+    assert abs(float(location.longitude) - float(data["longitude"])) < 1e-6
 
 
 @pytest.mark.asyncio

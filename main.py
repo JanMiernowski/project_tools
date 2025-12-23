@@ -9,9 +9,11 @@ from routers import locations
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Startup: Create tables if they don't exist
-    from models.base import Base
+    from sqlmodel import SQLModel
+    from models.models import Location, Building, Owner, Features, Listing  # noqa: F401
+    
     async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.create_all)
+        await conn.run_sync(SQLModel.metadata.create_all)
     yield
     # Shutdown: Close database connections
     await engine.dispose()

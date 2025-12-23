@@ -1,5 +1,7 @@
-from sqlalchemy.orm import declarative_base
+from sqlmodel import SQLModel
 
-# Base class for models (used by Alembic migrations)
-Base = declarative_base()
+# Base for Alembic migrations - SQLModel provides metadata
+# Models should inherit from SQLModel with table=True
+# For Alembic: use SQLModel.metadata (accessed via Base.metadata)
+Base = SQLModel
 
